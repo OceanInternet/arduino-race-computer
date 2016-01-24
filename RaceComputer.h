@@ -1,81 +1,84 @@
 #ifndef RaceComputer_h
 #define RaceComputer_h
 
+#include <FifoStack.h>
+
 #define PORT 0
 #define STBD 1
 
 #define DISPLAY_REFRESH  500 // Milliseconds
 #define LOGGING_REFRESH 2000 // Milliseconds
 
-#define SAMPLES 10;
+#define SAMPLES 10
 
 class RaceComputer {
  public:
-  RaceComputer();
+  RaceComputer ();
 
-  int getTack();
+  float getCurrentTack ();
 
-  int getHeading();
+  float getHeading ();
 
-  int getHeelAngle();
+  float getHeelAngle ();
 
-  int getTrimAngle();
+  float getTrimAngle ();
 
-  int getWindAngle();
+  float getWindAngle ();
 
-  int getTackingAngle();
+  float getTackingAngle ();
 
-  int getHeadingPort();
+  float getHeadingPort ();
 
-  int getHeadingStbd();
+  float getHeadingStbd ();
 
-  float getLatitude();
+  float getLatitude ();
 
-  float getLongitude();
+  float getLongitude ();
 
-  int getSpeedOverGround();
+  float getSpeedOverGround ();
 
-  int getCourseOverGround();
+  float getCourseOverGround ();
+
+  void updateHeading (float angle);
+
+  void updateHeelAngle (float angle);
+
+  void updateTrimAngle (float angle);
+
+  void updateWindAngle (float angle);
+
+  void updateTackingAngle (float angle);
+
+  void updateLatitude (float _latitude_);
+
+  void updateLongitude (float _longitude_);
+
+  void updateSpeedOverGround (float speed);
+
+  void updateCourseOverGround (float angle);
 
  protected:
-  int tack = PORT;
 
-  int heading[SAMPLES];
-  int heelAngle[SAMPLES];
-  int trimAngle[SAMPLES];
+  int currentTack = PORT;
 
-  int windAngle[SAMPLES];    // Calculated from tack, heading, tacking angle
-  int tackingAngle[SAMPLES]; // Preset boat tacking angle - used to calculate headingPort/Stbd
-  int headingPort[SAMPLES];  // Tactical heading display  - Like Silva Racing Compass
-  int headingStbd[SAMPLES];  // Tactical heading display  - Like Silva Racing Compass
+  FifoStack<float, SAMPLES> heading;
+  FifoStack<float, SAMPLES> heelAngle;
+  FifoStack<float, SAMPLES> trimAngle;
 
-  float latitude[SAMPLES];
-  float longitude[SAMPLES];
+  FifoStack<float, SAMPLES> windAngle;
+  FifoStack<float, SAMPLES> tackingAngle;
 
-  int speedOverGround[SAMPLES];
-  int courseOverGround[SAMPLES];
+  FifoStack<float, SAMPLES> latitude;
+  FifoStack<float, SAMPLES> longitude;
 
-  void updateHeading(int angle);
+  FifoStack<float, SAMPLES> speedOverGround;
+  FifoStack<float, SAMPLES> courseOverGround;
 
-  void updateHeelAngle(int angle);
+  template<typename valueType, int stackSize>
+  float get (FifoStack<valueType, stackSize> stack);
 
-  void updateTrimAngle(int angle);
-
-  void updateWindAngle(int angle);
-
-  void updateTackingAngle(int angle);
-
-  void updateHeadingPort(int angle);
-
-  void updateHeadingStbd(int angle);
-
-  void updateLatitude(float _latitude_);
-
-  void updateLongitude(float _longitude_);
-
-  void updateSpeedOverGround(int speed);
-
-  void updateCourseOverGround(int angle);
+  template<typename valueType, int stackSize>
+  void update (FifoStack<valueType, stackSize> &stack, valueType value);
 };
 
 #endif
