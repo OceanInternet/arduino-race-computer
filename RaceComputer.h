@@ -1,5 +1,5 @@
-#ifndef RACECOMPUTER_RACECOMPUTER_H
-#define RACECOMPUTER_RACECOMPUTER_H
+#ifndef RaceComputer_h
+#define RaceComputer_h
 
 #define PORT 0
 #define STBD 1
@@ -11,81 +11,71 @@
 
 class RaceComputer {
  public:
-  RaceComputer ();
+  RaceComputer();
 
-  int getTack ();
+  int getTack();
 
-  int getHeading ();
+  int getHeading();
 
-  int getHeelAngle ();
+  int getHeelAngle();
 
-  int getTrimAngle ();
+  int getTrimAngle();
 
-  int getWindAngle ();
+  int getWindAngle();
 
-  int getTackingAngle ();
+  int getTackingAngle();
 
-  int getHeadingPort ();
+  int getHeadingPort();
 
-  int getHeadingStbd ();
+  int getHeadingStbd();
 
-  float getLatitude ();
+  float getLatitude();
 
-  float getLongitude ();
+  float getLongitude();
 
-  int getSpeedOverGround ();
+  int getSpeedOverGround();
 
-  int getCourseOverGround ();
+  int getCourseOverGround();
 
  protected:
   int tack = PORT;
 
-  int std::map;
-  int heelAngle[SAMPLES
-  ];
-  int trimAngle[SAMPLES
-  ];
+  int heading[SAMPLES];
+  int heelAngle[SAMPLES];
+  int trimAngle[SAMPLES];
 
-  int windAngle[SAMPLES
-  ];    // Calculated from tack, heading, tacking angle
-  int tackingAngle[SAMPLES
-  ]; // Preset boat tacking angle - used to calculate headingPort/Stbd
-  int headingPort[SAMPLES
-  ];  // Tactical heading display  - Like Silva Racing Compass
-  int headingStbd[SAMPLES
-  ];  // Tactical heading display  - Like Silva Racing Compass
+  int windAngle[SAMPLES];    // Calculated from tack, heading, tacking angle
+  int tackingAngle[SAMPLES]; // Preset boat tacking angle - used to calculate headingPort/Stbd
+  int headingPort[SAMPLES];  // Tactical heading display  - Like Silva Racing Compass
+  int headingStbd[SAMPLES];  // Tactical heading display  - Like Silva Racing Compass
 
-  float latitude[SAMPLES
-  ];
-  float longitude[SAMPLES
-  ];
+  float latitude[SAMPLES];
+  float longitude[SAMPLES];
 
-  int speedOverGround[SAMPLES
-  ];
-  int courseOverGround[SAMPLES
-  ];
+  int speedOverGround[SAMPLES];
+  int courseOverGround[SAMPLES];
 
-  void updateHeading (int angle);
+  void updateHeading(int angle);
 
-  void updateHeelAngle (int angle);
+  void updateHeelAngle(int angle);
 
-  void updateTrimAngle (int angle);
+  void updateTrimAngle(int angle);
 
-  void updateWindAngle (int angle);
+  void updateWindAngle(int angle);
 
-  void updateTackingAngle (int angle);
+  void updateTackingAngle(int angle);
 
-  void updateHeadingPort (int angle);
+  void updateHeadingPort(int angle);
 
-  void updateHeadingStbd (int angle);
+  void updateHeadingStbd(int angle);
 
-  void updateLatitude (float _latitude_);
+  void updateLatitude(float _latitude_);
 
-  void updateLongitude (float _longitude_);
+  void updateLongitude(float _longitude_);
 
-  void updateSpeedOverGround (int speed);
+  void updateSpeedOverGround(int speed);
 
-  void updateCourseOverGround (int angle);
+  void updateCourseOverGround(int angle);
 };
 
-#endif //RACECOMPUTER_RACECOMPUTER_H
+#endif
